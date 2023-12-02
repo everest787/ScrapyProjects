@@ -9,7 +9,7 @@ from itemadapter import ItemAdapter
 import json
 
 
-class WebscraperPipeline:
+class OtherworldlyobjectsPipeline:
     def process_item(self, item, spider):
         return item
 

@@ -14,8 +14,8 @@ class LinkedinSpider(scrapy.Spider):
         keywords = ["Software"]
         location = "Canada"
 
-        baseURL = f"https://www.linkedin.com/jobs/search?keywords={keywords[0]}&location={location}&f_TPR=r86400"
-        #baseURL = "https://www.w3schools.com"
+        #baseURL = f"https://www.linkedin.com/jobs/search?keywords={keywords[0]}&location={location}&f_TPR=r86400"
+        baseURL = "https://www.example.com"
         url = baseURL
 
         yield SplashRequest(url, self.parse, args={'wait': 0.5})
@@ -56,6 +56,6 @@ class ProxySpider(scrapy.Spider):
 
 process = CrawlerProcess(get_project_settings())
 
-process.crawl(ProxySpider)
+#process.crawl(ProxySpider)
 process.crawl(LinkedinSpider)
 process.start()

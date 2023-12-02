@@ -1,5 +1,4 @@
-import os
-# Scrapy settings for webscraper project
+# Scrapy settings for OtherWorldlyObjects project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -8,16 +7,20 @@ import os
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "webscraper"
+BOT_NAME = "OtherWorldlyObjects"
 
-SPIDER_MODULES = ["webscraper.spiders"]
-NEWSPIDER_MODULE = "webscraper.spiders"
+SPIDER_MODULES = ["OtherWorldlyObjects.spiders"]
+NEWSPIDER_MODULE = "OtherWorldlyObjects.spiders"
 
-SPLASH_URL = 'http://localhost:8050/'
+from shutil import which
+
+SELENIUM_DRIVER_NAME = 'firefox'
+SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
+SELENIUM_DRIVER_ARGUMENTS = ['-headless']
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "webscraper (+http://www.yourdomain.com)"
+#USER_AGENT = "OtherWorldlyObjects (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -47,24 +50,16 @@ COOKIES_ENABLED = False
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
-}
-
-ROTATING_PROXY_LIST_PATH = os.path.abspath('..') + '\proxies.txt'
+#SPIDER_MIDDLEWARES = {
+#    "OtherWorldlyObjects.middlewares.OtherworldlyobjectsSpiderMiddleware": 543,
+#}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
+  
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-    'scrapy_splash.SplashCookiesMiddleware': 723,
-    'scrapy_splash.SplashMiddleware': 725,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+     'scrapy_selenium.SeleniumMiddleware': 800
 }
-
-DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
-
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -75,7 +70,7 @@ DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "webscraper.pipelines.JsonWriterPipeline": 300,
+    "OtherWorldlyObjects.pipelines.JsonWriterPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -98,9 +93,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = "httpcache"
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
-
-#If you use Scrapy HTTP cache then a custom cache storage backend is required. 
-HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
 # Set settings whose default value is deprecated to a future-proof value
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
