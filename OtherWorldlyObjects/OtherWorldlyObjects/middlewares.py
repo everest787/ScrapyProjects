@@ -101,3 +101,16 @@ class OtherworldlyobjectsDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+
+from selenium import webdriver
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+
+class WebDriverDownloaderMiddleware:
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls()
+
+    def process_request(self, request, spider):
+        driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))

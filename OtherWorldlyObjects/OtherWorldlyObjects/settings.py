@@ -15,7 +15,7 @@ NEWSPIDER_MODULE = "OtherWorldlyObjects.spiders"
 from shutil import which
 
 SELENIUM_DRIVER_NAME = 'firefox'
-SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
+SELENIUM_DRIVER_EXECUTABLE_PATH = "OtherWorldlyObjects\OtherWorldlyObjects\driver\geckodriver.exe"
 SELENIUM_DRIVER_ARGUMENTS = ['-headless']
 
 
@@ -58,7 +58,8 @@ COOKIES_ENABLED = False
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
   
 DOWNLOADER_MIDDLEWARES = {
-     'scrapy_selenium.SeleniumMiddleware': 800
+    "OtherWorldlyObjects.middlewares.WebDriverDownloaderMiddleware": 775,
+    "scrapy_selenium.SeleniumMiddleware": 800
 }
 
 # Enable or disable extensions
